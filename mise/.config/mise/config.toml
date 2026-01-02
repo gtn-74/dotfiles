@@ -1,0 +1,10 @@
+[tools]
+deno = "latest"
+go = "latest"
+node = "latest"
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:@google/gemini-cli" = "latest"
+pnpm = "latest"
+
+# anki用
+yarn = "latest"
