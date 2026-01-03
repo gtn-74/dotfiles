@@ -55,7 +55,7 @@ stow brew    # Brewfile のみ
 ### 5. Brewfile から一括インストール
 
 ```bash
-brew bundle  # ~/Brewfile（stow でリンク済み）から読み込み
+brew bundle --file ~/.config/Brewfile  # stow でリンク済み
 ```
 
 すべてのアプリ・ツールが復元される！
@@ -102,7 +102,7 @@ git commit -m "Add alacritty config"
 ### Brewfile に追記（手動または dump）
 
 ```bash
-brew bundle dump --force  # 既存の ~/Brewfile を上書き
+brew bundle dump --force --file ~/.config/Brewfile  # 既存の Brewfile を上書き
 ```
 
 ### 設定の削除
@@ -119,6 +119,8 @@ stow -D bash  # bash 設定のリンクを削除
 - `~/dotfiles/bash/.bashrc` → `~/.bashrc`
 - `~/dotfiles/git/.gitconfig` → `~/.gitconfig`
 - `~/dotfiles/nvim/.config/nvim/` → `~/.config/nvim/`
+- `~/dotfiles/wezterm/.config/wezterm/` → `~/.config/wezterm/`
+- `~/dotfiles/brew/.config/Brewfile` → `~/.config/Brewfile`
 
 ## 参考
 
