@@ -2,18 +2,60 @@
 
 GNU Stow を使用した dotfiles 管理リポジトリ
 
+## XDG Base Directory とは？
+
+**仕様（ルール・規格）**の名前です。ライブラリやソフトウェアではありません。
+
+### 従来の方法 vs XDG準拠
+
+**昔の方法**:
+```
+~/
+├── .bashrc
+├── .vimrc
+├── .gitconfig
+├── .zshrc
+└── .npmrc  # ホームディレクトリがドットファイルだらけ😫
+```
+
+**XDG準拠の方法**:
+```
+~/
+├── .bashrc（最小限のブートストラップ）
+└── .config/        # ← ここにまとめる！
+    ├── bash/
+    ├── git/
+    ├── nvim/
+    └── zsh/        # スッキリ整理✨
+```
+
+### このリポジトリのアプローチ
+
+設定ファイルを `~/.config/` 配下に集約することで：
+- ✅ ホームディレクトリが散らからない
+- ✅ 設定の場所が分かりやすい
+- ✅ バックアップ・管理が簡単
+
+詳細: [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+
 ## 含まれる設定
 
-- **bash**: Bash シェルの設定（.bashrc）
-- **git**: Git の設定（.gitconfig と .config/git）
-- **zsh**: Zsh シェルの設定（.zshrc, .zshenv）
-- **nvim**: Neovim エディタの設定
-- **fish**: Fish シェルの設定
-- **gh**: GitHub CLI の設定
-- **karabiner**: Karabiner-Elements の設定
-- **mise**: Mise（ランタイムバージョンマネージャー）の設定
-- **wezterm**: WezTerm ターミナルの設定
-- **brew**: Homebrew パッケージリスト（Brewfile）
+**home** パッケージに全設定を統合管理（XDG Base Directory 準拠）:
+
+- **Shell 設定**:
+  - Bash: `~/.config/bash/`
+  - Zsh: `~/.config/zsh/`（ZDOTDIR で指定）
+  - Fish: `~/.config/fish/`
+- **開発ツール**:
+  - Git: `~/.config/git/`
+  - GitHub CLI: `~/.config/gh/`
+  - mise: `~/.config/mise/`
+- **エディタ・ターミナル**:
+  - Neovim: `~/.config/nvim/`
+  - WezTerm: `~/.config/wezterm/`
+- **その他**:
+  - Karabiner-Elements: `~/.config/karabiner/`
+  - Brewfile: `~/.config/Brewfile`
 
 ## 新しい Mac でのセットアップ
 
@@ -41,16 +83,14 @@ cd ~/dotfiles
 ### 4. 設定ファイルをシンボリックリンク
 
 ```bash
-# 必要な設定をシンボリックリンク
-stow bash git zsh nvim fish gh karabiner mise wezterm brew
-
-# または個別に配置
-stow bash    # Bash 設定のみ
-stow git     # Git 設定のみ
-stow wezterm # WezTerm 設定のみ
-stow brew    # Brewfile のみ
-# など...
+# すべての設定をシンボリックリンク（1コマンドで完了）
+stow home
 ```
+
+これだけで以下がリンクされます:
+- `~/.bashrc` → ブートストラップファイル（`~/.config/bash/bashrc` を読み込む）
+- `~/.zshenv` → ブートストラップファイル（`ZDOTDIR=~/.config/zsh` を設定）
+- `~/.config/` 配下のすべての設定ファイル
 
 ### 5. Brewfile から一括インストール
 
@@ -67,7 +107,10 @@ brew bundle --file ~/.config/Brewfile  # stow でリンク済み
 stow でリンクされた設定ファイルを編集すると、自動的に dotfiles リポジトリに反映されます：
 
 ```bash
-vim ~/.bashrc  # ~/dotfiles/bash/.bashrc を編集
+# XDG 準拠の設定ファイルを編集
+vim ~/.config/zsh/.zshrc  # ~/dotfiles/home/.config/zsh/.zshrc を編集
+vim ~/.config/nvim/init.lua  # ~/dotfiles/home/.config/nvim/init.lua を編集
+
 cd ~/dotfiles
 git add -A
 git commit -m "Update configuration"
@@ -80,24 +123,24 @@ git commit -m "Update configuration"
 ```bash
 cd ~/dotfiles
 
-# 1. dotfiles 内にディレクトリ構造を作成してコピー
-mkdir -p alacritty/.config
-cp -r ~/.config/alacritty alacritty/.config/
+# 1. home/.config 内にコピー
+cp -r ~/.config/alacritty home/.config/
 
 # 2. 元のファイルを削除
 rm -rf ~/.config/alacritty
 
-# 3. stow でシンボリックリンクを作成
-stow alacritty
+# 3. stow で再リンク（home パッケージ全体を再stow）
+stow -R home
 
 # 4. Git に追加
-git add alacritty
+git add home/.config/alacritty
 git commit -m "Add alacritty config"
 ```
 
-**重要**: `~/dotfiles/パッケージ名/` 以下の構造が、そのまま `~` に展開されます。
-- `~/.config/xxx` を管理する場合 → `~/dotfiles/パッケージ名/.config/xxx/` という構造にする
-- `~/xxx` を管理する場合 → `~/dotfiles/パッケージ名/xxx` という構造にする
+**重要**:
+- すべての設定は `~/dotfiles/home/` に統合管理（XDG Base Directory 準拠）
+- `.config` 配下の設定は `~/dotfiles/home/.config/` に配置
+- Shell のブートストラップファイル（.bashrc, .zshenv）は `~/dotfiles/home/` 直下
 
 ### Brewfile に追記（手動または dump）
 
@@ -109,18 +152,50 @@ brew bundle dump --force --file ~/.config/Brewfile  # 既存の Brewfile を上�
 
 ```bash
 cd ~/dotfiles
-stow -D bash  # bash 設定のリンクを削除
+stow -D home  # すべての設定のリンクを削除
 ```
 
-## GNU Stow の仕組み,
+## GNU Stow の仕組み
 
-`~/dotfiles/パッケージ名/` 内のファイルを `~` にシンボリックリンクとして展開：
+`~/dotfiles/home/` 内のファイルを `~` にシンボリックリンクとして展開：
 
-- `~/dotfiles/bash/.bashrc` → `~/.bashrc`
-- `~/dotfiles/git/.gitconfig` → `~/.gitconfig`
-- `~/dotfiles/nvim/.config/nvim/` → `~/.config/nvim/`
-- `~/dotfiles/wezterm/.config/wezterm/` → `~/.config/wezterm/`
-- `~/dotfiles/brew/.config/Brewfile` → `~/.config/Brewfile`
+**ブートストラップファイル**:
+- `~/dotfiles/home/.bashrc` → `~/.bashrc`（`~/.config/bash/bashrc` を読み込む）
+- `~/dotfiles/home/.zshenv` → `~/.zshenv`（`ZDOTDIR=~/.config/zsh` を設定）
+
+**設定ファイル（XDG 準拠）**:
+- `~/dotfiles/home/.config/bash/` → `~/.config/bash/`
+- `~/dotfiles/home/.config/git/` → `~/.config/git/`
+- `~/dotfiles/home/.config/zsh/` → `~/.config/zsh/`
+- `~/dotfiles/home/.config/nvim/` → `~/.config/nvim/`
+- `~/dotfiles/home/.config/wezterm/` → `~/.config/wezterm/`
+- `~/dotfiles/home/.config/mise/` → `~/.config/mise/`
+- その他すべての `.config` 配下のツール
+
+**ディレクトリ構造**:
+```
+dotfiles/
+└── home/              # すべての設定を統合管理
+    ├── .bashrc        # Bash ブートストラップ
+    ├── .zshenv        # Zsh ブートストラップ（ZDOTDIR 設定）
+    └── .config/       # XDG Base Directory 準拠
+        ├── bash/      # Bash 設定
+        │   └── bashrc
+        ├── git/       # Git 設定
+        │   └── config
+        ├── zsh/       # Zsh 設定
+        │   ├── .zshrc
+        │   └── .zshenv
+        ├── nvim/      # Neovim 設定
+        ├── wezterm/   # WezTerm 設定
+        ├── mise/      # mise 設定
+        ├── gh/        # GitHub CLI 設定
+        ├── fish/      # Fish シェル設定
+        ├── karabiner/ # Karabiner 設定
+        └── Brewfile   # Homebrew パッケージリスト
+```
+
+**参考リポジトリと同様の構造**を実現しつつ、GNU Stow で管理できる形になっています。
 
 ## 参考
 
