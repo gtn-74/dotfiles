@@ -1,0 +1,4 @@
+" Vim設定ファイル
+
+" jjマッピング
+inoremap jj <Esc>
