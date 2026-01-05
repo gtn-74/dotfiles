@@ -17,6 +17,7 @@ brew "gh"
 brew "git"
 brew "httpd"
 brew "hugo"
+brew "mas"
 brew "mise"
 brew "mvfst"
 brew "mysql"
@@ -48,6 +49,10 @@ cask "obsidian"
 cask "virtualbox"
 cask "windsurf"
 cask "wezterm"
+mas "Kindle", id: 302584613
+mas "LINE", id: 539883307
+mas "WhatsApp", id: 310633997
+mas "Xcode", id: 497799835
 vscode "aaron-bond.better-comments"
 vscode "amimaro.remix-run-snippets"
 vscode "anfeket.mono-bw"
