@@ -24,6 +24,18 @@ export PATH="$HOME/.local/bin:$PATH"
 # mise（すべてのツールの PATH 管理）
 eval "$(mise activate zsh)"
 
+# zoxide
+eval "$(zoxide init zsh)"
+
+# the root path of the Git repository
+# git alias
+alias cdroot='cd "$(git rev-parse --show-toplevel)"'
+alias gsw= switch
+alias gcb = switch -C
+alias gsp = stash pop
+alias gsl = stash list
+alias gb = branch
+alias gal='git config --get-regexp alias'
 
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
