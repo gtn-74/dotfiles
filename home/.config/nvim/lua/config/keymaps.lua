@@ -4,3 +4,6 @@
 
 -- jjマッピング
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
+
+-- ~/.config/nvim/lua/keybind.lua
+vim.keymap.set("n", "<leader>r", ":source $MYVIMRC<CR>", { desc = "Reload config" })

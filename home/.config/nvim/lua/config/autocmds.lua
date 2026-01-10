@@ -6,3 +6,6 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+-- Markdownのスペルチェックを無効化（日本語で赤波線が出ないようにする）
+vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")

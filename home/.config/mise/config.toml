@@ -1,10 +1,13 @@
 [tools]
 deno = "latest"
 go = "latest"
+java = "21"
+lazygit = "latest"
 node = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
 "npm:@google/gemini-cli" = "latest"
 pnpm = "latest"
+shfmt = "latest"
 
 # anki用
 yarn = "latest"
