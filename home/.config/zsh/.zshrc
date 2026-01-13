@@ -6,19 +6,12 @@
 export ZSH="$HOME/.oh-my-zsh"
 # テーマを設定
 ZSH_THEME="jonathan"
-# zsh plugins
-plugins=(
-  zsh-autosuggestions
-)
+
 # oh-my-zsh を読み込む
 source $ZSH/oh-my-zsh.sh
 
 # Kiro
-export PATH="$HOME/.local/bin:$PATH"
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
-
-# mise（すべてのツールの PATH 管理）
-eval "$(mise activate zsh)"
 
 # zoxide
 eval "$(zoxide init zsh)"
