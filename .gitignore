@@ -1,4 +1,14 @@
-.DS_Store
-.config/vim/.netwhist
+**/.DS_Store
+
+# claude (settings.local.json以外は無視)
+.claude/*
+!.claude/settings.local.json
+
+# zsh
+.config/zsh/.zprofile
+.config/zsh/.zcompdump*
 .config/zsh/.zsh_history
-.config/zsh/.zsh_history
+.config/zsh/.zsh_sessions/
+
+# vim
+.config/vim/.netrwhist
