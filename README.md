@@ -52,7 +52,8 @@ GNU Stow を使用した dotfiles 管理リポジトリ
   - mise: `~/.config/mise/`
 - **エディタ・ターミナル**:
   - Neovim: `~/.config/nvim/`
-  - WezTerm: `~/.config/wezterm/`
+  - WezTerm: `~/.config/wezterm/`（[詳細](home/.config/wezterm/README.md)）
+  - Sheldon: `~/.config/sheldon/`（[詳細](home/.config/sheldon/README.md)） - zsh プラグインマネージャー
 - **その他**:
   - Karabiner-Elements: `~/.config/karabiner/`
   - Brewfile: `~/.config/Brewfile`

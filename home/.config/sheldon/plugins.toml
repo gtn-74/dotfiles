@@ -1,0 +1,44 @@
+# sheldon configuration file
+shell = "zsh"
+
+[plugins]
+
+# compinit (must be first)
+[plugins.compinit]
+inline = 'autoload -Uz compinit && compinit'
+
+# oh-my-zsh library (core functions)
+[plugins.oh-my-zsh]
+github = "ohmyzsh/ohmyzsh"
+use = ["lib/*.zsh"]
+
+# jonathan theme
+[plugins.jonathan-theme]
+github = "ohmyzsh/ohmyzsh"
+use = ["themes/jonathan.zsh-theme"]
+
+# oh-my-zsh git plugin
+[plugins.ohmyzsh-git]
+github = "ohmyzsh/ohmyzsh"
+dir = "plugins/git"
+
+# zsh-completions
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+
+# zsh-autosuggestions
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+# zsh-syntax-highlighting (must be last)
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+
+# fzf
+[plugins.fzf]
+github = "junegunn/fzf"
+use = ["shell/*.zsh"]
+
+# zoxide
+[plugins.zoxide]
+inline = 'eval "$(zoxide init zsh)"'
