@@ -1,0 +1,7 @@
+[user]
+	name = gtn-74
+	email = 122336489+gtn-74@users.noreply.github.com
+[core]
+	excludesFile = ~/.gitignore_global
+[init]
+	defaultBranch = main
