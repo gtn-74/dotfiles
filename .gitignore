@@ -1,7 +1,8 @@
 **/.DS_Store
 
-# claude (settings.local.json以外は無視)
+# claude
 .claude/*
+!.claude/README.md
 !.claude/settings.local.json
 
 # zsh
