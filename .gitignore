@@ -3,7 +3,7 @@
 # claude
 .claude/*
 !.claude/README.md
-!.claude/settings.local.json
+.claude/settings.local.json
 
 # zsh
 home/.config/zsh/.zprofile
@@ -13,3 +13,4 @@ home/.config/zsh/.zsh_sessions/
 
 # vim
 .config/vim/.netrwhist
+.config/nvim/lazy-lock.json
