@@ -145,3 +145,39 @@ return {
 6. SQLクエリを記述
 7. `BB` でクエリ実行
 8. `<C-w>j` で結果ウィンドウに移動して確認
+
+## トラブルシューティング
+
+### Docker PostgreSQL 接続時の SSL エラー
+
+**エラー内容:**
+```
+pq: SSL is not enabled on the server
+```
+
+**原因:**
+- PostgreSQL クライアントはデフォルトで SSL 接続を試みる
+- Docker の PostgreSQL イメージはデフォルトで SSL が無効
+- サーバーが SSL に対応していないため接続が失敗する
+
+**解決策:**
+
+接続 URL に `?sslmode=disable` を追加する:
+
+```lua
+-- 修正前
+url = "postgres://user:pass@localhost:5432/dbname"
+
+-- 修正後
+url = "postgres://user:pass@localhost:5432/dbname?sslmode=disable"
+```
+
+**sslmode オプション:**
+
+| モード | 説明 |
+|--------|------|
+| `disable` | SSL を使用しない（ローカル開発向け） |
+| `require` | SSL 必須（本番環境推奨） |
+| `verify-full` | SSL + 証明書検証（最も安全） |
+
+> ローカル開発環境では `sslmode=disable` で問題ないが、本番環境やリモート DB には `sslmode=require` 以上を使用すること
