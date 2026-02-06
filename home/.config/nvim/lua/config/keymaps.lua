@@ -8,5 +8,10 @@ vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
 -- ~/.config/nvim/lua/keybind.lua
 vim.keymap.set("n", "<leader>r", ":source $MYVIMRC<CR>", { desc = "Reload config" })
 
+-- lazydocker
+vim.keymap.set("n", "<leader>gD", function()
+  Snacks.terminal("lazydocker", { cwd = LazyVim.root() })
+end, { desc = "Lazydocker" })
+
 -- 検索
 vim.keymap.set("n", "<leader>/", "<cmd>FzfLua live_grep<cr>", { desc = "Live Grep" })

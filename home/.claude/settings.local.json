@@ -1,6 +1,17 @@
 {
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "Bash(mise use:*)",
+      "Bash(nvim:*)",
+      "WebFetch(domain:raw.githubusercontent.com)"
+    ]
+  },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": ["markitdown"],
+  "enabledMcpjsonServers": [
+    "markitdown"
+  ],
   "hooks": {
     "Stop": [
       {
