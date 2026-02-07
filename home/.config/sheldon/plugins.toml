@@ -3,7 +3,15 @@ shell = "zsh"
 
 [plugins]
 
-# compinit (must be first)
+# Powerlevel10k instant prompt (must be first)
+[plugins.p10k-instant-prompt]
+inline = '''
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+'''
+
+# compinit
 [plugins.compinit]
 inline = 'autoload -Uz compinit && compinit'
 
@@ -20,6 +28,10 @@ use = ["lib/*.zsh"]
 # Powerlevel10k theme
 [plugins.powerlevel10k]
 github = "romkatv/powerlevel10k"
+
+# p10k configuration
+[plugins.p10k-config]
+inline = '[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh'
 
 # oh-my-zsh git plugin
 [plugins.ohmyzsh-git]
