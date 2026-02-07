@@ -12,10 +12,14 @@ inline = 'autoload -Uz compinit && compinit'
 github = "ohmyzsh/ohmyzsh"
 use = ["lib/*.zsh"]
 
-# jonathan theme
-[plugins.jonathan-theme]
-github = "ohmyzsh/ohmyzsh"
-use = ["themes/jonathan.zsh-theme"]
+# jonathan theme (disabled)
+# [plugins.jonathan-theme]
+# github = "ohmyzsh/ohmyzsh"
+# use = ["themes/jonathan.zsh-theme"]
+
+# Powerlevel10k theme
+[plugins.powerlevel10k]
+github = "romkatv/powerlevel10k"
 
 # oh-my-zsh git plugin
 [plugins.ohmyzsh-git]

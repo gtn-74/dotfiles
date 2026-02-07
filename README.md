@@ -51,7 +51,7 @@ GNU Stow を使用した dotfiles 管理リポジトリ
   - GitHub CLI: `~/.config/gh/`
   - mise: `~/.config/mise/`
 - **エディタ・ターミナル**:
-  - Neovim: `~/.config/nvim/`
+  - Neovim: `~/.config/nvim/`([詳細](home/.config/nvim/README.md))
   - WezTerm: `~/.config/wezterm/`（[詳細](home/.config/wezterm/README.md)）
   - Sheldon: `~/.config/sheldon/`（[詳細](home/.config/sheldon/README.md)） - zsh プラグインマネージャー
 - **その他**:
