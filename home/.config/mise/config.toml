@@ -8,6 +8,7 @@ node = "latest"
 "npm:@google/gemini-cli" = "latest"
 pnpm = "latest"
 shfmt = "latest"
+uv = "latest"
 
 # anki用
 yarn = "latest"

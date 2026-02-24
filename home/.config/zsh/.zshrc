@@ -28,6 +28,9 @@ cdf() {
   local dir
   dir=$(fd --type d | fzf) && cd "$dir"
 }
+# fzf
+# .bashrcや.zshrcに追加
+alias fv='fzf --preview "bat --color=always {}" --preview-window right:60%'
 
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
