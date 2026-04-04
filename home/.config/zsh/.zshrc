@@ -1,8 +1,11 @@
 # Kiro CLI pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
 
+# Disable p10k instant prompt to avoid gitstatus initialization errors
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+
 # sheldon (plugin manager)
-eval "$(sheldon source)"
+command -v sheldon &>/dev/null && eval "$(sheldon source)"
 
 # Kiro
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
@@ -34,3 +37,5 @@ alias fv='fzf --preview "bat --color=always {}" --preview-window right:60%'
 
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+
+true

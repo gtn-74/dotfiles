@@ -1,0 +1,81 @@
+* {
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans JP", sans-serif;
+  font-size: 14px;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+window#waybar {
+  background-color: rgba(20, 20, 30, 0.9);
+  color: #cdd6f4;
+}
+
+/* ── Workspaces ───────────────────────────────── */
+#workspaces button {
+  padding: 0 8px;
+  color: #6c7086;
+  background: transparent;
+}
+
+#workspaces button.active {
+  color: #cdd6f4;
+  border-bottom: 2px solid #89b4fa;
+}
+
+#workspaces button:hover {
+  color: #cdd6f4;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── App launchers ────────────────────────────── */
+#custom-nautilus,
+#custom-slack,
+#custom-chrome,
+#custom-trash,
+#custom-settings {
+  padding: 0 10px;
+  font-size: 16px;
+  color: #6c7086;
+}
+
+#custom-nautilus:hover,
+#custom-slack:hover,
+#custom-chrome:hover,
+#custom-trash:hover,
+#custom-settings:hover {
+  color: #cdd6f4;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#custom-trash.has-items {
+  color: #f38ba8;
+}
+
+/* ── Clock ────────────────────────────────────── */
+#clock {
+  padding: 0 12px;
+  color: #cdd6f4;
+  font-weight: bold;
+}
+
+/* ── Right modules ────────────────────────────── */
+#pulseaudio,
+#network,
+#battery,
+#tray {
+  padding: 0 10px;
+  color: #cdd6f4;
+}
+
+#battery.warning {
+  color: #fab387;
+}
+
+#battery.critical {
+  color: #f38ba8;
+}
+
+#pulseaudio.muted {
+  color: #6c7086;
+}

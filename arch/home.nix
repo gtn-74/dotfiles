@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+
   home.username = "gtn-74";
   home.homeDirectory = "/home/gtn-74";
   home.stateVersion = "25.11";
@@ -24,6 +26,16 @@
     playerctl
     brightnessctl
 
+    # Apps
+    slack
+    wezterm
+    nautilus
+    gnome-control-center
+    nwg-dock-hyprland
+
+    # Fonts
+    nerd-fonts.jetbrains-mono
+
     # CLI tools
     ripgrep
     fd
@@ -34,12 +46,15 @@
     mise
     gh
     jujutsu
+    sheldon
   ];
 
   # ============================================================
   # Arch-specific configs
   # ============================================================
   home.file.".config/hypr/hyprland.conf".source = ./.config/hypr/hyprland.conf;
+  home.file.".config/waybar".source = ./.config/waybar;
+  home.file.".config/nwg-dock-hyprland".source = ./.config/nwg-dock-hyprland;
   home.file.".config/kitty.conf".source = ./.config/kitty.conf;
 
   # ============================================================

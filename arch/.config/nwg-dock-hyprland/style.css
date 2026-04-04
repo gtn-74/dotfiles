@@ -1,0 +1,26 @@
+window {
+  background: transparent;
+}
+
+#box {
+  background-color: rgba(20, 20, 30, 0.75);
+  border-radius: 16px;
+  padding: 6px;
+  margin: 0 4px 8px 4px;
+}
+
+#icon {
+  background: transparent;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+#icon:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* 起動中インジケーター */
+#launcher {
+  background-color: #89b4fa;
+  border-radius: 2px;
+}
