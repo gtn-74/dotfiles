@@ -3,6 +3,9 @@
 {
   nixpkgs.config.allowUnfree = true;
 
+  # non-NixOS での GPU サポート
+  targets.genericLinux.enable = true;
+
   home.username = "gtn-74";
   home.homeDirectory = "/home/gtn-74";
   home.stateVersion = "25.11";
@@ -15,7 +18,6 @@
     waybar
     hyprpaper
     hypridle
-    hyprlock
     hyprlauncher
     mako            # notifications
     grim            # screenshots
@@ -52,10 +54,12 @@
   # ============================================================
   # Arch-specific configs
   # ============================================================
-  home.file.".config/hypr/hyprland.conf".source = ./.config/hypr/hyprland.conf;
-  home.file.".config/waybar".source = ./.config/waybar;
-  home.file.".config/nwg-dock-hyprland".source = ./.config/nwg-dock-hyprland;
-  home.file.".config/kitty.conf".source = ./.config/kitty.conf;
+  # dots-hyprland本体は新PC時に setup スクリプトを1回実行する
+  # ユーザーカスタマイズ部分だけをここで管理する
+  home.file.".config/hypr/custom" = {
+    source = ./.config/hypr/custom;
+    recursive = true;
+  };
 
   # ============================================================
   # Shared configs (from home/ in the dotfiles repo)
@@ -87,6 +91,10 @@
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_CACHE_HOME = "$HOME/.cache";
   };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
   programs.home-manager.enable = true;
 }
