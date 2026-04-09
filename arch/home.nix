@@ -56,10 +56,7 @@
   # ============================================================
   # dots-hyprland本体は新PC時に setup スクリプトを1回実行する
   # ユーザーカスタマイズ部分だけをここで管理する
-  home.file.".config/hypr/custom" = {
-    source = ./.config/hypr/custom;
-    recursive = true;
-  };
+  home.file.".config/hypr/custom".source = ./.config/hypr/custom;
 
   # ============================================================
   # Shared configs (from home/ in the dotfiles repo)
