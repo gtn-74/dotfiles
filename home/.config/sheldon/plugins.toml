@@ -46,6 +46,10 @@ github = "zsh-users/zsh-completions"
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 
+# zeno.zsh (fuzzy completion + abbrev snippets, requires deno)
+[plugins.zeno]
+github = "yuki-yano/zeno.zsh"
+
 # zsh-syntax-highlighting (must be last)
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
@@ -57,4 +61,4 @@ use = ["shell/*.zsh"]
 
 # zoxide
 [plugins.zoxide]
-inline = 'command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"'
+inline = 'command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd j)"'
