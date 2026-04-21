@@ -7,11 +7,15 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 # sheldon (plugin manager)
 command -v sheldon &>/dev/null && eval "$(sheldon source)"
 
+# fzf の Ctrl+T (ファイル検索) を無効化 - WezTerm のタブ新規作成と競合するため
+bindkey -r '^T'
+
 # Kiro
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
 # the root path of the Git repository
 # git alias
+alias clear='paclear -s 2'
 alias cdroot='cd "$(git rev-parse --show-toplevel)"'
 alias gsw='git switch'
 alias gcb='git switch -C'
