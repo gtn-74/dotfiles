@@ -1,6 +1,6 @@
 # dotfiles
 
-Home Manager (Nix) で管理する dotfiles リポジトリ。
+nix-darwin + Home Manager (Nix) で管理する dotfiles リポジトリ。Mac / Arch Linux に対応。
 
 ## リポジトリ構成
 
@@ -16,21 +16,75 @@ dotfiles/
 │       ├── git/        # Git
 │       ├── gh/         # GitHub CLI
 │       ├── mise/       # mise (ランタイム管理)
-│       └── sheldon/    # Zsh プラグインマネージャー
+│       ├── sheldon/    # Zsh プラグインマネージャー
+│       └── jj/         # Jujutsu
+├── mac/                # macOS 固有設定（nix-darwin）
+│   ├── flake.nix       # flake 定義・ユーザー設定
+│   ├── darwin.nix      # システム設定・Homebrew casks
+│   └── home.nix        # Home Manager パッケージ
 └── arch/               # Arch Linux 固有設定
     ├── home.nix        # Home Manager 設定ファイル
     └── .config/
         └── hypr/
             └── custom/ # Hyprland ユーザーカスタマイズ
-                ├── env.conf
-                ├── execs.conf
-                ├── general.conf
-                ├── keybinds.conf
-                └── rules.conf
 ```
 
-> **dots-hyprland 本体**（`hyprland/` フォルダ等）は Home Manager では管理しない。
-> 新PC時に setup スクリプトを1回実行する。
+---
+
+## Mac 新規セットアップ
+
+### 1. Nix インストール（Determinate Systems）
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+```
+
+インストール後、新しいターミナルを開くか以下を実行：
+
+```bash
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+```
+
+### 2. dotfiles クローン
+
+```bash
+git clone https://github.com/gtn-74/dotfiles.git ~/dotfiles
+```
+
+### 3. GNU Stow で設定ファイルをリンク
+
+```bash
+brew install stow
+cd ~/dotfiles && stow home
+```
+
+### 4. ユーザー設定を編集
+
+`mac/flake.nix` の `let user = { ... }` ブロックを自分の環境に合わせて変更：
+
+```nix
+let
+  user = {
+    name     = "your-username";
+    home     = "/Users/your-username";
+    hostname = "your-hostname";  # scutil --get LocalHostName で確認
+  };
+```
+
+### 5. nix-darwin を適用（初回のみ）
+
+```bash
+cd ~/dotfiles && git add mac/
+sudo /nix/var/nix/profiles/default/bin/nix run \
+  'github:LnL7/nix-darwin/8c62fba0854ba15c8917aed18894dbccb48a3777' \
+  -- switch --flake ~/dotfiles/mac#<hostname>
+```
+
+### 6. mise でランタイムをインストール
+
+```bash
+mise install
+```
 
 ---
 
@@ -68,91 +122,37 @@ ln -sf ~/dotfiles/arch/home.nix ~/.config/home-manager/home.nix
 home-manager switch
 ```
 
-これだけで以下が全て適用される：
-- Hyprland 関連パッケージ（waybar, hypridle, mako 等）
-- 開発ツール（nvim, wezterm, gh, mise 等）
-- `~/.config/hypr/custom/` のカスタマイズ設定（シンボリックリンク）
-- zsh / fish / nvim 等の設定ファイル
-
 ### 6. dots-hyprland のセットアップ（1回だけ）
-
-Hyprland の UI テーマ・シェル部分は dots-hyprland で管理している：
 
 ```bash
 git clone https://github.com/end-4/dots-hyprland.git ~/dots-hyprland
-cd ~/dots-hyprland
-./setup
+cd ~/dots-hyprland && ./setup
 ```
-
-> home-manager switch でリンクした `~/.config/hypr/custom/` は dots-hyprland setup 後も上書きされない。
-
----
-
-## Mac 新規セットアップ
-
-### 1. Homebrew インストール
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-### 2. dotfiles クローン
-
-```bash
-git clone https://github.com/gtn-74/dotfiles.git ~/dotfiles
-```
-
-### 3. GNU Stow でリンク
-
-```bash
-brew install stow
-cd ~/dotfiles
-stow home
-```
-
-### 4. Brewfile から一括インストール
-
-```bash
-brew bundle --file ~/.config/Brewfile
-```
-
-> VSCode は Settings Sync で同期。
 
 ---
 
 ## 日常的な使い方
 
-### 設定を変更する
-
-設定ファイルはシンボリックリンクなので、`~/.config/` 上で直接編集すると dotfiles リポジトリに即反映される。
-
-ただし `hypr/custom/` は nix store への読み取り専用リンクのため、**dotfiles 側を編集してから** `home-manager switch` が必要：
+### 設定変更を適用する
 
 ```bash
-# 例: キーバインドを変更したい場合
-vim ~/dotfiles/arch/.config/hypr/custom/keybinds.conf
+# Mac
+sudo darwin-rebuild switch --flake ~/dotfiles/mac#<hostname>
+
+# Arch
 home-manager switch
 ```
 
-### 新しい設定を追加する（Arch）
+### 設定ファイルを編集する
 
-例：`~/.config/foo/` を管理対象にしたい場合：
+`home/` 以下はシンボリックリンクなので `~/.config/` 上で直接編集すると dotfiles に即反映される。
 
-```bash
-# 1. dotfiles にコピー
-cp -r ~/.config/foo ~/dotfiles/arch/.config/
+### パッケージを追加する（Mac）
 
-# 2. home.nix に追記
-#    home.file.".config/foo".source = ./.config/foo;
+`mac/home.nix` の `home.packages` に追記して `darwin-rebuild switch`。
 
-# 3. 適用
-home-manager switch
-```
+GUI アプリは `mac/darwin.nix` の `homebrew.casks` に追記。
 
-### パッケージを追加する
+### パッケージを追加する（Arch）
 
-`arch/home.nix` の `home.packages` にパッケージ名を追記して：
-
-```bash
-home-manager switch
-```
+`arch/home.nix` の `home.packages` に追記して `home-manager switch`。
