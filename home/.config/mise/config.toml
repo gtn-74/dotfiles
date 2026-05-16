@@ -1,6 +1,7 @@
 [tools]
 deno = "latest"
 go = "latest"
+"go:github.com/orangekame3/paclear" = "latest"
 java = "21"
 lazygit = "latest"
 node = "latest"

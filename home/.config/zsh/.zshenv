@@ -1,5 +1,7 @@
 # .zshenv - すべてのzshセッションで読み込まれる
 
+export EDITOR=nvim
+
 # Homebrew（Intel Mac の場合は /usr/local/bin）
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 

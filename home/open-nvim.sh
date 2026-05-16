@@ -8,3 +8,4 @@
 
 DIR="${1/#\~/$HOME}"
 open -a WezTerm -n --args start --cwd "$DIR" -- nvim .
+

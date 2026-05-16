@@ -5,7 +5,20 @@
       "WebSearch",
       "Bash(mise use:*)",
       "Bash(nvim:*)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(nix --version)",
+      "Bash(scutil --get ComputerName)",
+      "Bash(scutil --get LocalHostName)",
+      "Bash(curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix)",
+      "Bash(sh -s -- install --no-confirm)",
+      "Bash(darwin-rebuild --version)",
+      "Read(//nix/store/sv4y5y7axb89vp29dbbk94rnisw8aal9-darwin-rebuild/bin/**)",
+      "Bash(defaults read *)",
+      "Bash(defaults write *)",
+      "Bash(brew search *)",
+      "Bash(brew info *)",
+      "Bash(paclear --help)",
+      "Bash(~/.local/share/mise/shims/paclear --help)"
     ]
   },
   "enableAllProjectMcpServers": true,
