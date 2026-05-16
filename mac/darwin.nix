@@ -83,6 +83,9 @@
   system.defaults.dock.wvous-br-corner = 14;
 
   system.activationScripts.userDefaults.text = ''
+    # Spotlight の Cmd+Space を無効化（Raycast に譲る）
+    sudo -u ${user.name} defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "<dict><key>enabled</key><false/><key>value</key><dict><key>parameters</key><array><integer>32</integer><integer>49</integer><integer>1048576</integer></array><key>type</key><string>standard</string></dict></dict>"
+    /System/Library/CoreServices/pbs -flush 2>/dev/null || true
     # マウスカーソル速度最速
     sudo -u ${user.name} defaults write NSGlobalDomain com.apple.mouse.scaling -float 3.0
     # Caps Lock で日本語/英字切り替え
