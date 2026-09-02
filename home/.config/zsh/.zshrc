@@ -45,6 +45,16 @@ cdf() {
 # .bashrcや.zshrcに追加
 alias fv='fzf --preview "bat --color=always {}" --preview-window right:60%'
 
+# direnv を最後の precmd/chpwd フックにして、flake を持つプロジェクトでは
+# nix の言語ツールを mise より PATH 上で優先させる（mise は後勝ちで nix を覆うため）
+if command -v direnv >/dev/null 2>&1; then
+  autoload -Uz add-zsh-hook
+  add-zsh-hook -d precmd _direnv_hook
+  add-zsh-hook -d chpwd _direnv_hook
+  add-zsh-hook precmd _direnv_hook
+  add-zsh-hook chpwd _direnv_hook
+fi
+
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
 
