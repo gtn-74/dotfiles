@@ -4,6 +4,22 @@
 .claude/*
 !.claude/README.md
 .claude/settings.local.json
+home/.claude/settings.local.json   # マシン固有の権限リスト（追跡しない）
+
+# nix build 生成物
+result
+
+# ゴミ
+Untitled
+
+# raycast: 拡張の実体データ（数十MB、設定ではない）
+home/.config/raycast/
+
+# cagent: マシン識別子・first-run マーカー
+home/.config/cagent/
+
+# qiita-cli: credentials.json を含む（秘密情報）
+home/.config/qiita-cli/
 
 # zsh
 home/.config/zsh/.zprofile
