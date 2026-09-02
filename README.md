@@ -15,7 +15,6 @@ dotfiles/
 │       ├── wezterm/    # WezTerm
 │       ├── git/        # Git
 │       ├── gh/         # GitHub CLI
-│       ├── mise/       # mise (ランタイム管理)
 │       ├── sheldon/    # Zsh プラグインマネージャー
 │       └── jj/         # Jujutsu
 ├── mac/                # macOS 固有設定（nix-darwin）
@@ -80,11 +79,9 @@ sudo /nix/var/nix/profiles/default/bin/nix run \
   -- switch --flake ~/dotfiles/mac#<hostname>
 ```
 
-### 6. mise でランタイムをインストール
-
-```bash
-mise install
-```
+> 開発ツール・言語ランタイム（node / go / deno / uv / pnpm / yarn / java など）は
+> `mac/dev-tools.nix` で nix 管理しているため、`darwin-rebuild switch` で一緒に入る。
+> 個別インストール手順は不要。
 
 ---
 

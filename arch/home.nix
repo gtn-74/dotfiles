@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ../mac/dev-tools.nix ]; # 旧 mise 管理の開発ツール群（mac と共有）
+
   nixpkgs.config.allowUnfree = true;
 
   # non-NixOS での GPU サポート
@@ -39,13 +41,13 @@
     nerd-fonts.jetbrains-mono
 
     # CLI tools
+    ni
     ripgrep
     fd
     jq
     eza
     bat
     fzf
-    mise
     gh
     jujutsu
     sheldon
@@ -67,7 +69,6 @@
   home.file.".config/fish".source = ../home/.config/fish;
   home.file.".config/wezterm".source = ../home/.config/wezterm;
   home.file.".config/sheldon".source = ../home/.config/sheldon;
-  home.file.".config/mise".source = ../home/.config/mise;
   home.file.".config/gh".source = ../home/.config/gh;
 
   # ============================================================
