@@ -1,0 +1,22 @@
+name: nix-check
+
+on:
+  pull_request:
+    paths:
+      - "mac/**"
+      - ".github/workflows/nix-check.yml"
+  workflow_dispatch:
+
+jobs:
+  darwin:
+    # 構成が aarch64-darwin 向けなので Apple Silicon のランナーでビルドする
+    runs-on: macos-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: nix flake check
+        run: nix flake check ./mac
+      - name: Build darwin configuration
+        run: nix build ./mac#darwinConfigurations.mac-air.system --print-build-logs

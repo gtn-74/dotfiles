@@ -1,0 +1,33 @@
+name: update-flake-lock
+
+on:
+  schedule:
+    - cron: "0 0 * * 1" # 毎週月曜 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write # nix-check を workflow_dispatch で起動するため
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - id: update
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          path-to-flake-dir: mac
+          pr-title: "chore: update flake.lock"
+          pr-labels: dependencies
+          branch: update_flake_lock_action
+
+      # GITHUB_TOKEN で作った PR では pull_request トリガーのワークフローが起動しない。
+      # workflow_dispatch は例外的に起動できるので、PR ブランチに対して検証を明示的に走らせる。
+      - name: Run nix-check on the PR branch
+        if: steps.update.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: update_flake_lock_action
+        run: gh workflow run nix-check.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"

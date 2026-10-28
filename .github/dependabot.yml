@@ -1,0 +1,18 @@
+version: 2
+updates:
+  # flake.lock の input ごとに PR を作る（public リポジトリのみ対応）。
+  # 一括更新は update-flake-lock ワークフローが週次で行うため、こちらは monthly に抑える。
+  - package-ecosystem: "nix"
+    directory: "/mac"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore(nix)"
+
+  # ワークフローで使う actions のバージョン更新
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore(ci)"
