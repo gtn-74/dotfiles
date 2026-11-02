@@ -8,7 +8,8 @@
 
 - `mac/flake.lock` は `update-flake-lock` アクションで週次に更新 PR を作る（`.github/workflows/update-flake-lock.yml`）
 - 更新 PR には `nix flake check` と darwin 構成のビルドを走らせ、マージは手動で行う（`.github/workflows/nix-check.yml`）
-- リポジトリが public なので Dependabot の `nix` ecosystem も併用する。あわせて GitHub Actions 自体の更新も Dependabot に任せる（`.github/dependabot.yml`）
+- Dependabot の `nix` ecosystem は使わない。update-flake-lock の一括更新 PR と中身が重複するため（2026-11-02 に併用をやめた）
+- GitHub Actions 自体の更新は Dependabot に任せる（`.github/dependabot.yml`）
 - Nix 管理ツールの CVE は Dependabot alerts では検知できない。nixpkgs を前へ進め続けることで取り込む
 
 以下は判断の根拠となった調査メモ（引き継ぎ書）。
